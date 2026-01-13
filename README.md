@@ -69,15 +69,16 @@ npm run init-db
 
 # 启动服务器
 npm start
-
-##界面展示
-#登录界面
+```
+### 界面展示
+## 电脑端界面
+# 登录界面
 <img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/8a1174fd-e2d7-40e0-82e5-9b2bfd25acb5" />
-#选择游戏界面
+# 选择游戏界面
 <img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/ae3144ae-aba3-4caf-a7e1-70139d83dca8" />
-#游戏界面
+# 游戏界面
 <img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/380ed814-cce9-442e-973f-79ef30fef0fb" />
-#后台界面
+# 后台界面
 <img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/f5828c52-a4be-483b-ab0e-a816698ec06c" />
 <img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/ed381444-a981-4671-b8b0-a6f43a0bf910" />
 
