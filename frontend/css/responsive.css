@@ -1,0 +1,176 @@
+/* css/responsive.css */
+/* 平板设备 */
+@media (max-width: 1024px) {
+    .container {
+        padding: 15px;
+    }
+
+    .player-section {
+        gap: 20px;
+    }
+
+    .player-card {
+        width: 180px;
+        padding: 20px;
+    }
+
+    .card {
+        width: 160px;
+        height: 220px;
+    }
+
+    .punishment-card {
+        padding: 20px;
+    }
+}
+
+/* 手机设备 */
+@media (max-width: 768px) {
+    .auth-box {
+        padding: 30px 20px;
+        margin: 50px auto;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .setup-content {
+        padding: 25px 20px;
+    }
+
+    .game-area {
+        padding: 25px 20px;
+    }
+
+    .player-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .player-card {
+        width: 100%;
+        max-width: 300px;
+        flex-direction: row;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 15px;
+    }
+
+    .player-icon {
+        font-size: 40px;
+        margin-bottom: 0;
+        margin-right: 15px;
+    }
+
+    .player-card h3 {
+        margin-right: auto;
+    }
+
+    .cards-container {
+        gap: 15px;
+    }
+
+    .card {
+        width: 140px;
+        height: 190px;
+    }
+
+    .action-buttons,
+    .game-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-buttons button,
+    .game-controls button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .punishment-card {
+        padding: 15px;
+    }
+
+    .punishment-title {
+        font-size: 1.5rem;
+    }
+
+    .punishment-desc {
+        font-size: 1.1rem;
+    }
+}
+
+/* 小屏幕手机 */
+@media (max-width: 480px) {
+    .auth-box h1 {
+        font-size: 1.8rem;
+    }
+
+    .header h1 {
+        font-size: 1.6rem;
+    }
+
+    .cards-container {
+        gap: 10px;
+    }
+
+    .card {
+        width: 120px;
+        height: 170px;
+    }
+
+    .punishment-title {
+        font-size: 1.3rem;
+    }
+
+    .punishment-desc {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 768px) {
+    .admin-tabs {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 15px;
+    }
+    
+    .admin-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .punishment-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .punishment-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .modal-footer button {
+        width: 100%;
+    }
+}

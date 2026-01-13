@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 情侣翻牌游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 多选尺度样式 */
+        .intensity-checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 10px 0;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .checkbox-option:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .checkbox-option label {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .checkbox-hint {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        
+        /* 尺度标签样式 */
+        .intensity-label.mild {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+        
+        .intensity-label.moderate {
+            background-color: #fff9c4;
+            color: #f57f17;
+        }
+        
+        .intensity-label.intimate {
+            background-color: #ffccbc;
+            color: #d84315;
+        }
+        
+        .intensity-label.wild {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+        
+        /* 管理后台模态框按钮修复 */
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .modal-footer .btn-secondary,
+        .modal-footer .btn-primary {
+            padding: 12px 28px;
+            font-size: 1rem;
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .modal-footer .btn-secondary {
+            background-color: #666;
+            color: white;
+        }
+        
+        .modal-footer .btn-secondary:hover {
+            background-color: #555;
+        }
+        
+        /* 惩罚列表中的多尺度标签 */
+        .intensity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        
+        .intensity-tags .intensity-label {
+            font-size: 0.8rem;
+            padding: 3px 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-cog"></i> 管理后台</h1>
+            <div>
+                <button id="back-to-game" class="btn-secondary">返回游戏</button>
+                <button id="logout-btn" class="btn-danger">退出登录</button>
+            </div>
+        </div>
+        
+        <div class="admin-tabs">
+            <button class="tab-btn active" data-tab="punishments">惩罚管理</button>
+            <button class="tab-btn" data-tab="password">修改密码</button>
+        </div>
+        
+        <!-- 惩罚管理标签页 -->
+        <div id="punishments-tab" class="tab-content active">
+            <div class="admin-section">
+                <div class="admin-header">
+                    <button id="add-punishment-btn" class="btn-primary">
+                        <i class="fas fa-plus"></i> 添加新惩罚
+                    </button>
+                </div>
+                
+                <div class="punishments-list" id="punishments-list">
+                    <!-- 惩罚列表会通过JS动态加载 -->
+                    <div class="loading">加载中...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 修改密码标签页 -->
+        <div id="password-tab" class="tab-content">
+            <div class="admin-section">
+                <h2>修改访问密码</h2>
+                <div class="password-form">
+                    <div class="form-group">
+                        <label for="new-password">新密码：</label>
+                        <input type="password" id="new-password" placeholder="请输入新密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">确认密码：</label>
+                        <input type="password" id="confirm-password" placeholder="请再次输入新密码">
+                    </div>
+                    <button id="update-password-btn" class="btn-primary">更新密码</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 添加/编辑惩罚模态框 -->
+        <div id="punishment-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">添加新惩罚</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="punishment-form">
+                        <input type="hidden" id="punishment-id">
+                        
+                        <div class="form-group">
+                            <label for="punishment-title">惩罚标题：</label>
+                            <input type="text" id="punishment-title" placeholder="请输入惩罚标题" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="punishment-description">惩罚描述：</label>
+                            <textarea id="punishment-description" rows="4" placeholder="请输入惩罚的详细描述" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="punishment-type">惩罚类型：</label>
+                            <select id="punishment-type" required>
+                                <option value="common">通用惩罚</option>
+                                <option value="male">男生惩罚</option>
+                                <option value="female">女生惩罚</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>适用尺度：</label>
+                            <div class="intensity-checkbox-group">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="check-mild" name="intensity_mild" value="mild">
+                                    <label for="check-mild" class="intensity-label mild">轻度</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="check-moderate" name="intensity_moderate" value="moderate" checked>
+                                    <label for="check-moderate" class="intensity-label moderate">中度</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="check-intimate" name="intensity_intimate" value="intimate">
+                                    <label for="check-intimate" class="intensity-label intimate">亲密</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="check-wild" name="intensity_wild" value="wild">
+                                    <label for="check-wild" class="intensity-label wild">狂野</label>
+                                </div>
+                            </div>
+                            <p class="checkbox-hint">可多选，该惩罚将在所选尺度中生效</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="punishment-active">状态：</label>
+                            <select id="punishment-active">
+                                <option value="true">启用</option>
+                                <option value="false">禁用</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn-secondary close-modal">取消</button>
+                            <button type="submit" class="btn-primary">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情侣翻牌游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 密码验证页面 -->
+    <div id="auth-container" class="container">
+        <div class="auth-box">
+            <div class="heart-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1>情侣翻牌游戏</h1>
+            <p class="subtitle">输入密码进入游戏</p>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="请输入访问密码"> </div>
+              <div class="form-group">  <button id="login-btn" class="btn-primary">进入游戏</button>
+            </div>
+            <p class="hint">提示：默认密码是 "love123"</p>
+        </div>
+    </div>
+
+    <!-- 游戏主页面 -->
+    <div id="game-container" class="container hidden">
+        <!-- 游戏设置界面 -->
+        <div id="setup-screen">
+            <div class="header">
+                <h1><i class="fas fa-heart"></i> 情侣翻牌游戏</h1>
+                <button id="admin-btn" class="btn-secondary">管理后台</button>
+            </div>
+            
+<div class="intensity-selection">
+    <h3>选择游戏尺度：</h3>
+    <p class="selection-subtitle">请根据你们的亲密程度选择合适的尺度</p>
+    
+    <div class="intensity-cards">
+        <div class="intensity-card" data-intensity="mild">
+            <div class="intensity-icon">
+                <i class="fas fa-seedling"></i>
+            </div>
+            <h4 class="intensity-title">轻度</h4>
+            <p class="intensity-desc">适合刚开始交往的情侣</p>
+            <div class="intensity-examples">
+                <span><i class="fas fa-heart"></i> 对视挑战</span>
+                <span><i class="fas fa-heart"></i> 甜蜜问答</span>
+                <span><i class="fas fa-heart"></i> 简单互动</span>
+            </div>
+            <div class="select-indicator">
+                <i class="fas fa-check-circle"></i> 已选择
+            </div>
+        </div>
+        
+        <div class="intensity-card active" data-intensity="moderate">
+            <div class="intensity-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h4 class="intensity-title">中度</h4>
+            <p class="intensity-desc">适合稳定期的情侣</p>
+            <div class="intensity-examples">
+                <span><i class="fas fa-kiss-wink-heart"></i> 亲密接触</span>
+                <span><i class="fas fa-kiss-wink-heart"></i> 浪漫挑战</span>
+                <span><i class="fas fa-kiss-wink-heart"></i> 情感互动</span>
+            </div>
+            <div class="select-indicator">
+                <i class="fas fa-check-circle"></i> 已选择
+            </div>
+        </div>
+        
+        <div class="intensity-card" data-intensity="intimate">
+            <div class="intensity-icon">
+                <i class="fas fa-fire"></i>
+            </div>
+            <h4 class="intensity-title">亲密</h4>
+            <p class="intensity-desc">适合关系亲密的情侣</p>
+            <div class="intensity-examples">
+                <span><i class="fas fa-fire"></i> 深情互动</span>
+                <span><i class="fas fa-fire"></i> 亲密挑战</span>
+                <span><i class="fas fa-fire"></i> 浪漫任务</span>
+            </div>
+            <div class="select-indicator">
+                <i class="fas fa-check-circle"></i> 已选择
+            </div>
+        </div>
+        
+        <div class="intensity-card" data-intensity="wild">
+            <div class="intensity-icon">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <h4 class="intensity-title">狂野</h4>
+            <p class="intensity-desc">适合关系非常亲密的情侣</p>
+            <div class="intensity-examples">
+                <span><i class="fas fa-bolt"></i> 激情挑战</span>
+                <span><i class="fas fa-bolt"></i> 大胆互动</span>
+                <span><i class="fas fa-bolt"></i> 热烈任务</span>
+            </div>
+            <div class="select-indicator">
+                <i class="fas fa-check-circle"></i> 已选择
+            </div>
+        </div>
+    </div>
+    
+    <input type="hidden" id="intensity-select" value="moderate">
+</div>
+                
+                <div class="rules">
+                    <h3>游戏规则：</h3>
+                    <ul>
+                        <li>1. 男生和女生轮流翻牌</li>
+                        <li>2. 每次从3张牌中选择1张</li>
+                        <li>3. 翻到牌后执行对应的惩罚</li>
+                        <li>4. 完成惩罚后点击"已完成惩罚，轮到对方"</li>
+                        <li>5. 可以随时结束游戏</li>
+                    </ul>
+                </div>
+                
+                <button id="start-game-btn" class="btn-primary">开始游戏</button>
+            </div>
+        </div>
+        
+        <!-- 游戏进行界面 -->
+        <div id="game-screen" class="hidden">
+            <div class="game-header">
+                <div class="current-player">
+                    <span id="current-player-text">当前玩家：男生</span>
+                </div>
+                <div class="session-info">
+                    <span id="session-code">游戏代码: GAME123456</span>
+                </div>
+            </div>
+            
+            <div class="game-area">
+                <div class="player-section">
+                    <div class="player-card male active">
+                        <div class="player-icon">
+                            <i class="fas fa-male"></i>
+                        </div>
+                        <h3>男生</h3>
+                        <div class="player-status">当前回合</div>
+                    </div>
+                    
+                    <div class="player-card female">
+                        <div class="player-icon">
+                            <i class="fas fa-female"></i>
+                        </div>
+                        <h3>女生</h3>
+                        <div class="player-status">等待中</div>
+                    </div>
+                </div>
+                
+                <div class="cards-section">
+                    <h3 id="instruction-text">男生，请选择一张牌</h3>
+                    <div class="cards-container" id="cards-container">
+                        <!-- 卡片会通过JS动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="punishment-section hidden" id="punishment-section">
+                    <h3>惩罚内容：</h3>
+                    <div class="punishment-card" id="punishment-card">
+                        <div class="punishment-title" id="punishment-title">对视10秒</div>
+                        <div class="punishment-desc" id="punishment-desc">深情对视10秒钟，不能笑场</div>
+                        <div class="punishment-meta">
+                            <span class="intensity-label mild" id="punishment-intensity"></span>
+                            <span class="type-label" id="punishment-type">通用</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="complete-and-next-btn" class="btn-primary">已完成惩罚，轮到对方</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button id="end-game-btn" class="btn-danger">结束游戏</button>
+                <button id="back-to-setup-btn" class="btn-secondary">返回设置</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
